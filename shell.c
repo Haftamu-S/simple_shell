@@ -1,5 +1,4 @@
 #include "main.h"
-
 /**
  * main - runs the shell program
  *
@@ -15,25 +14,21 @@ int main(void)
     signal(SIGINT, SIG_IGN);
     PATH = _getenv("PATH");
     if (PATH == NULL)
-        return (-1);
-    
+        return (-1);    
     while (1)
     {
         av = NULL;
         prompt();
-        buffer = _read();
-        
+        buffer = _read();        
         if (*buffer != '\0')
         {
-            av = tokenize(buffer);
-            
+            av = tokenize(buffer);            
             if (av == NULL)
             {
                 free(buffer);
                 continue;
             }
-            fullpathbuffer = _fullpathbuffer(av, PATH, copy);
-            
+            fullpathbuffer = _fullpathbuffer(av, PATH, copy);            
             if (checkbuiltins(av, buffer, exitstatus) == 1)
                 continue;
             exitstatus = _forkprocess(av, buffer, fullpathbuffer);
